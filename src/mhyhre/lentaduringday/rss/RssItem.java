@@ -40,10 +40,17 @@ public class RssItem {
 		return this.description;
 	}
 
-	@SuppressLint("SimpleDateFormat")
 	public String getPubDate() {
-		DateFormat df = new SimpleDateFormat("d EEEE y, H:m");
-		return df.format(pubDate);
+		DateFormat df = new SimpleDateFormat("d LLLL y, H:m", new Locale("ru", "RU"));
+		
+		String result = "";
+
+		try {
+			result = df.format(pubDate);
+        } catch (Exception e) {
+            Log.e("MHYHRE", "Exception:" + e);
+        }
+		return result;
 	}
 
 	public Bitmap getImage() {
@@ -51,7 +58,7 @@ public class RssItem {
 	}
 
 
-	@SuppressLint("SimpleDateFormat")
+
 	public static ArrayList<RssItem> getRssItems(String feedUrl) {
 
 		ArrayList<RssItem> rssItems = new ArrayList<RssItem>();
@@ -91,7 +98,7 @@ public class RssItem {
 						// Parse date & time
 						String rssDate = _pubDateE.getFirstChild().getNodeValue();
 						Date _date = null;
-						DateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz");
+						DateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz", new Locale("en", "EN"));
 
 						try {
 							_date = formatter.parse(rssDate);
