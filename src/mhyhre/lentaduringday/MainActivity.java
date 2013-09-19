@@ -6,14 +6,21 @@ import java.util.concurrent.ExecutionException;
 import mhyhre.lentaduringday.rss.RetreiveFeedTask;
 import mhyhre.lentaduringday.rss.RssItem;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 public class MainActivity extends Activity {
 
 	private final String feedUrl = "http://lenta.ru/rss/last24";
 
+	ListView mainList;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -34,8 +41,26 @@ public class MainActivity extends Activity {
 
 		LentaRssListAdapter adapter = new LentaRssListAdapter(this, newsFeed);
 		
-		ListView mainList = (ListView) this.findViewById(R.id.FeedListView);
+		mainList = (ListView) this.findViewById(R.id.FeedListView);
 		mainList.setAdapter(adapter);
+		
+		mainList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+			  @Override
+			  public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+
+				RssItem  item = (RssItem) mainList.getItemAtPosition(position);
+				
+				if(item == null){
+					return;
+				}
+				
+				Log.i("MHYHRE", "Opening Link:" + item.getLink());
+				
+				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(item.getLink()));
+				startActivity(browserIntent);
+			  }
+		});
 	}
 
 }

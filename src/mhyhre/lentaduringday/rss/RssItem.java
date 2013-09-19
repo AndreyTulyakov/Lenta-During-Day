@@ -19,13 +19,15 @@ public class RssItem {
 	private Date pubDate;
 	private String category;
 	private Bitmap image;
+	private String link;
 
-	public RssItem(String title, String description, Date pubDate, String category, Bitmap image) {
+	public RssItem(String title, String description, Date pubDate, String category, Bitmap image, String link) {
 		this.title = title;
 		this.description = description;
 		this.pubDate = pubDate;
 		this.category = category;
 		this.image = image;
+		this.link = link;
 	}
 
 	public String getTitle() {
@@ -59,6 +61,10 @@ public class RssItem {
 
 
 
+	public String getLink() {
+		return link;
+	}
+
 	public static ArrayList<RssItem> getRssItems(String feedUrl) {
 
 		ArrayList<RssItem> rssItems = new ArrayList<RssItem>();
@@ -90,10 +96,11 @@ public class RssItem {
 						Element _pubDateE = (Element) entry.getElementsByTagName("pubDate").item(0);
 						Element _categoryE = (Element) entry.getElementsByTagName("category").item(0);
 						Element _pictureE = (Element) entry.getElementsByTagName("enclosure").item(0);
+						Element _linkE = (Element) entry.getElementsByTagName("link").item(0);
 
 						String _title = _titleE.getFirstChild().getNodeValue();
 						String _description = getCharacterDataFromElement(_descriptionE);
-						
+						String _link = _linkE.getFirstChild().getNodeValue();
 
 						// Parse date & time
 						String rssDate = _pubDateE.getFirstChild().getNodeValue();
@@ -114,7 +121,7 @@ public class RssItem {
 						Bitmap _image = getBitmapFromURL(_pictureE.getAttributes().getNamedItem("url").getTextContent());
 
 						// Add news
-						RssItem rssItem = new RssItem(_title, _description, _date, _category, _image);
+						RssItem rssItem = new RssItem(_title, _description, _date, _category,_image, _link);
 						rssItems.add(rssItem);
 					}
 				}
