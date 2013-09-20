@@ -18,7 +18,7 @@ public class LentaRssListAdapter extends ArrayAdapter<RssItem> {
 	private final ArrayList<RssItem> values;
 
 	public LentaRssListAdapter(Context context, ArrayList<RssItem> values) {
-		super(context, R.layout.rowlayout, values);
+		super(context, R.layout.rss_row_layout, values);
 		this.context = context;
 		this.values = values;
 	}
@@ -28,7 +28,7 @@ public class LentaRssListAdapter extends ArrayAdapter<RssItem> {
 
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		
-		View rowView = inflater.inflate(R.layout.rowlayout, parent, false);
+		View rowView = inflater.inflate(R.layout.rss_row_layout, parent, false);
 		
 		TextView titleView = (TextView) rowView.findViewById(R.id.textTitle);
 		TextView textView = (TextView) rowView.findViewById(R.id.textContent);

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Lenta During Day</string>
+    <string name="app_name">Lenta D.D.</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
     <string name="title">Title</string>
     <string name="textcontent">textContent</string>
     <string name="date">date</string>
     <string name="category">category</string>
     <string name="image">Изображение</string>
-
+ 	<string name="update">Обновить</string>
+  
 </resources>

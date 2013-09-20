@@ -5,9 +5,10 @@ import java.text.*;
 import java.net.*;
 import java.io.*;
 import javax.xml.parsers.*;
-import org.w3c.dom.*;
 
-import android.annotation.SuppressLint;
+import org.w3c.dom.*;
+import org.xml.sax.SAXException;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -86,6 +87,7 @@ public class RssItem {
 				NodeList nodeList = element.getElementsByTagName("item");
 
 				if (nodeList.getLength() > 0) {
+					
 					for (int i = 0; i < nodeList.getLength(); i++) {
 
 						Element entry = (Element) nodeList.item(i);
@@ -111,8 +113,8 @@ public class RssItem {
 							_date = formatter.parse(rssDate);
 
 						} catch (ParseException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							
+							Log.e("MHYHRE", "Can't parse date.");
 						}
 
 						String _category = _categoryE.getFirstChild().getNodeValue();
@@ -129,11 +131,19 @@ public class RssItem {
 			} else {
 				Log.e("MHYHRE", "HttpURLConnection.HTTP_is not OK");
 			}
-		} catch (Exception e) {
-			Log.e("MHYHRE", "Connection: " + e);
-			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			Log.e("MHYHRE", "Connection Parser: " + e);
+			return null;
+			
+		} catch (SAXException e) {
+			Log.e("MHYHRE", "Connection SAX: " + e);
+			return null;
+			
+		} catch (IOException e) {
+			Log.e("MHYHRE", "Connection IO: " + e);
+			return null;
 		}
-
+		
 		return rssItems;
 	}
 
