@@ -14,29 +14,26 @@ public class FeedLoaderTask extends AsyncTask<String, Void, Object> {
 	    void onStartLoad();
 	} 
 	
-	private OnNewsLoadCompleted listener;
-	ArrayList<RssItem> feedItems = null;
+	private OnNewsLoadCompleted mListener;
+	ArrayList<RssItem> mFeedList = null;
 	
 	public FeedLoaderTask(OnNewsLoadCompleted listener) {
-		this.listener = listener;
+		this.mListener = listener;
 	}
 	
 	@Override
 	protected void onPreExecute() {
-		listener.onStartLoad();
+		mListener.onStartLoad();
 		super.onPreExecute();
 	}
-
 
 	protected Object doInBackground(String... url) {
 
 		try {
-			feedItems = RssItem.getRssItems(url[0]);
+			mFeedList = RssItem.getRssItems(url[0]);
 			
-		} catch (Exception e) {
-			
-			Log.e("MHYHRE", "RetreiveFeedTask:" + e);
-			
+		} catch (Exception e) {			
+			Log.e("MHYHRE", "RetreiveFeedTask:" + e);			
 		}
 		return null;
 	}
@@ -44,8 +41,7 @@ public class FeedLoaderTask extends AsyncTask<String, Void, Object> {
 	@Override
 	protected void onPostExecute(Object obj) {
 		
-		listener.onEndLoad(feedItems);
-		
+		mListener.onEndLoad(mFeedList);		
 		super.onPostExecute(obj);
 	}
 }

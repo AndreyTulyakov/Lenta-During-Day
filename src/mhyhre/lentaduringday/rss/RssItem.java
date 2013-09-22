@@ -15,32 +15,32 @@ import android.util.Log;
 
 public class RssItem {
 
-	private String title;
-	private String description;
-	private Date pubDate;
-	private String category;
-	private Bitmap image;
-	private String link;
+	private String mTitle;
+	private String mDescription;
+	private String mCategory;
+	private String mLink;
+	private Bitmap mImage;
+	private Date mPubDate;
 
 	public RssItem(String title, String description, Date pubDate, String category, Bitmap image, String link) {
-		this.title = title;
-		this.description = description;
-		this.pubDate = pubDate;
-		this.category = category;
-		this.image = image;
-		this.link = link;
+		this.mTitle = title;
+		this.mDescription = description;
+		this.mPubDate = pubDate;
+		this.mCategory = category;
+		this.mImage = image;
+		this.mLink = link;
 	}
 
 	public String getTitle() {
-		return this.title;
+		return this.mTitle;
 	}
 
 	public String getCategory() {
-		return this.category;
+		return this.mCategory;
 	}
 
 	public String getDescription() {
-		return this.description;
+		return this.mDescription;
 	}
 
 	public String getPubDate() {
@@ -49,7 +49,7 @@ public class RssItem {
 		String result = "";
 
 		try {
-			result = df.format(pubDate);
+			result = df.format(mPubDate);
         } catch (Exception e) {
             Log.e("MHYHRE", "Exception:" + e);
         }
@@ -57,13 +57,13 @@ public class RssItem {
 	}
 
 	public Bitmap getImage() {
-		return image;
+		return mImage;
 	}
 
 
 
 	public String getLink() {
-		return link;
+		return mLink;
 	}
 
 	public static ArrayList<RssItem> getRssItems(String feedUrl) {
@@ -86,6 +86,7 @@ public class RssItem {
 
 				NodeList nodeList = element.getElementsByTagName("item");
 
+				// Parse elements
 				if (nodeList.getLength() > 0) {
 					
 					for (int i = 0; i < nodeList.getLength(); i++) {
@@ -122,7 +123,7 @@ public class RssItem {
 						// Image loading
 						Bitmap _image = getBitmapFromURL(_pictureE.getAttributes().getNamedItem("url").getTextContent());
 
-						// Add news
+						// Put result
 						RssItem rssItem = new RssItem(_title, _description, _date, _category,_image, _link);
 						rssItems.add(rssItem);
 					}
@@ -132,15 +133,15 @@ public class RssItem {
 				Log.e("MHYHRE", "HttpURLConnection.HTTP_is not OK");
 			}
 		} catch (ParserConfigurationException e) {
-			Log.e("MHYHRE", "Connection Parser: " + e);
+			Log.e("MHYHRE", "getRssItems: Parser: " + e);
 			return null;
 			
 		} catch (SAXException e) {
-			Log.e("MHYHRE", "Connection SAX: " + e);
+			Log.e("MHYHRE", "getRssItems: SAX: " + e);
 			return null;
 			
 		} catch (IOException e) {
-			Log.e("MHYHRE", "Connection IO: " + e);
+			Log.e("MHYHRE", "getRssItems: IO: " + e);
 			return null;
 		}
 		

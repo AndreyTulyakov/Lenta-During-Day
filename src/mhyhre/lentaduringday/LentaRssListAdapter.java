@@ -13,20 +13,19 @@ import android.widget.TextView;
 
 public class LentaRssListAdapter extends ArrayAdapter<RssItem> {
 	
-	private final Context context;
-	
-	private final ArrayList<RssItem> values;
+	private final Context mContext;
+	private final ArrayList<RssItem> mValues;
 
 	public LentaRssListAdapter(Context context, ArrayList<RssItem> values) {
 		super(context, R.layout.rss_row_layout, values);
-		this.context = context;
-		this.values = values;
+		this.mContext = context;
+		this.mValues = values;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 
-		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		
 		View rowView = inflater.inflate(R.layout.rss_row_layout, parent, false);
 		
@@ -37,14 +36,13 @@ public class LentaRssListAdapter extends ArrayAdapter<RssItem> {
 		
 		ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
 		
-		titleView.setText(values.get(position).getTitle());
-		textView.setText(values.get(position).getDescription());
-		categoryView.setText(values.get(position).getCategory());
-		dateView.setText(values.get(position).getPubDate().toString());
+		titleView.setText(mValues.get(position).getTitle());
+		textView.setText(mValues.get(position).getDescription());
+		categoryView.setText(mValues.get(position).getCategory());
+		dateView.setText(mValues.get(position).getPubDate().toString());
 
-		imageView.setImageBitmap(values.get(position).getImage());
+		imageView.setImageBitmap(mValues.get(position).getImage());
 		
-
 		return rowView;
 	}
 }

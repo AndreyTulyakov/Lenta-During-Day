@@ -20,11 +20,11 @@ import android.widget.Toast;
 public class MainActivity extends Activity implements
 		FeedLoaderTask.OnNewsLoadCompleted {
 
-	private final String feedUrl = "http://lenta.ru/rss/last24";
+	private final String mFeedUrl = "http://lenta.ru/rss/last24";
 
-	ListView mainList;
-	ProgressBar loadingProgressBar;
-	ArrayList<RssItem> newsFeed = null;
+	ListView mMainList;
+	ProgressBar mLoadingProgress;
+	ArrayList<RssItem> mNewsList = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,46 +32,43 @@ public class MainActivity extends Activity implements
 
 		setContentView(R.layout.activity_main);
 
-		loadingProgressBar = (ProgressBar) this
-				.findViewById(R.id.LoadingProgressBar);
+		mLoadingProgress = (ProgressBar) this.findViewById(R.id.LoadingProgressBar);
+		mMainList = (ListView) findViewById(R.id.FeedListView);
 
 		loadNews();
-
 	}
 
 	private void loadNews() {
 
 		FeedLoaderTask feedTask = new FeedLoaderTask(this);
 
-		feedTask.execute(feedUrl);
+		feedTask.execute(mFeedUrl);
 
 	}
 
 	private void updateNewsList() {
 
-		loadingProgressBar.setVisibility(View.GONE);
+		mLoadingProgress.setVisibility(View.GONE);
 
-		if (newsFeed == null) {
+		if (mNewsList == null) {
 			Toast.makeText(getApplicationContext(), "Can't load information!",
 					Toast.LENGTH_LONG).show();
 			return;
 		}
 
 		// Create and fill adapter
-
-		LentaRssListAdapter adapter = new LentaRssListAdapter(this,newsFeed);
+		LentaRssListAdapter adapter = new LentaRssListAdapter(this,mNewsList);
 
 		// Update list view by new news
 
-		mainList = (ListView) findViewById(R.id.FeedListView);
-		mainList.setAdapter(adapter);
-		mainList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		mMainList.setAdapter(adapter);
+		mMainList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
 
-				RssItem item = (RssItem) mainList.getItemAtPosition(position);
+				RssItem item = (RssItem) mMainList.getItemAtPosition(position);
 
 				if (item == null) {
 					return;
@@ -110,13 +107,13 @@ public class MainActivity extends Activity implements
 
 	@Override
 	public void onStartLoad() {
-		loadingProgressBar.setVisibility(View.VISIBLE);
+		mLoadingProgress.setVisibility(View.VISIBLE);
 
 	}
 
 	@Override
 	public void onEndLoad(ArrayList<RssItem> items) {
-		newsFeed = items;
+		mNewsList = items;
 		updateNewsList();
 	}
 
