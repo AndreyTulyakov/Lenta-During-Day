@@ -5,6 +5,9 @@
 ==== Signed APK:
  /LentaDuringDay.apk
 
+
+==== Updates:
+
 2013 sep 22:
 - Added: progress bar.
 
@@ -13,5 +16,5 @@ older:
 - Added: going to the link when news cliked
 
 
-Авторы:
+==== Authors:
 - Андрей Туляков (mhyhre@gmail.com)
