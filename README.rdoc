@@ -8,10 +8,8 @@
 
 ==== Updates:
 
-2013 sep 22:
+2013 sep 19:
 - Added: progress bar.
-
-older:
 - Fixed bug with russian-lang. firmwares
 - Added: going to the link when news cliked
 
