@@ -2,9 +2,16 @@
 Тестовое задание 2 - Разработка мобильных приложений
 Чтение Rss c сайта lenta.ru
 
-Исправлен баг с вылетом в русскоязычных прошивках.
-Исправлено английское представление дней недели.
-Добавлено то, что проморгал: переход к статье в браузере, при клике по новости.
+==== Signed APK:
+ /LentaDuringDay.apk
+
+2013 sep 22:
+- Added: progress bar.
+
+older:
+- Fixed bug with russian-lang. firmwares
+- Added: going to the link when news cliked
+
 
 Авторы:
 - Андрей Туляков (mhyhre@gmail.com)
